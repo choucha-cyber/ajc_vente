@@ -7,8 +7,6 @@ import javax.persistence.EntityTransaction;
 import fr.ajc.jpa.entity.Client;
 
 public class ClientRepository extends EntityRepository<Client>{
-	
-	private EntityManagerFactory emf;
 
 	public ClientRepository(EntityManagerFactory emf) {
 		super(emf, Client.class);

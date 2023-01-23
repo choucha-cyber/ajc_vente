@@ -1,26 +1,23 @@
 package fr.ajc.jpa.entity;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 
 @Entity // Doit être gérée en BDD (=> il doit y avoir une table correspondante)
 @Table(name = "User") // La table en bdd
-@SequenceGenerator(name = "User_gen", sequenceName = "User_seq", initialValue = 1, allocationSize = 1) // Auto
-// increment
 public class User {
 
 	@Id // Clé primaire
-	@GeneratedValue(generator = "User_gen") // Auto increment
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private String username;//-->meme nom que la colonne donc pas d'annotation
 
-	@Column(name = "password") // La colonne en bdd
+	//@Column(name = "password") // La colonne en bdd
 	private String password;
 	
 	@OneToOne(mappedBy="userClient")
@@ -100,9 +97,12 @@ public class User {
 		this.userFournisseur = userFournisseur;
 	}
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "User [id=" + id + ", username=" + username + ", password=" + password + ", userClient=" + userClient
+//				+ ", userFournisseur=" + userFournisseur + "]";
+//	}
+
+	
 
 }

@@ -13,7 +13,6 @@ import fr.ajc.jpa.entity.Produit;
 
 public class ProduitRepository extends EntityRepository<Produit>{
 	
-	private EntityManagerFactory emf;
 
 	public ProduitRepository(EntityManagerFactory emf) {
 		super(emf, Produit.class);

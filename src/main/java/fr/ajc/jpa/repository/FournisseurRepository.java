@@ -9,8 +9,6 @@ import fr.ajc.jpa.entity.Fournisseur;
 
 
 public class FournisseurRepository extends EntityRepository<Fournisseur>{
-	
-	private EntityManagerFactory emf;
 
 	public FournisseurRepository(EntityManagerFactory emf) {
 		super(emf, Fournisseur.class);
@@ -66,7 +64,7 @@ public class FournisseurRepository extends EntityRepository<Fournisseur>{
 
 			// Requètes avec le EntityManager
 			TypedQuery<Fournisseur> query = em.createQuery(
-					"SELECT fourn FROM Fournisseur form LEFT JOIN FETCH fourn.modules WHERE fourn.id=:id", Fournisseur.class);
+					"SELECT fourn FROM Fournisseur fourn LEFT JOIN FETCH fourn.produit WHERE fourn.id=:id", Fournisseur.class);
 			query.setParameter("id", id);
 
 			fournisseur = query.getSingleResult();

@@ -1,33 +1,35 @@
 package fr.ajc.jpa.entity;
 
-import java.util.List;
 
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
+
 import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
 
 
 @Entity
 @Table(name = "Client") // La table en bdd
-@SequenceGenerator(name = "Client_gen", sequenceName = "Client_seq", initialValue = 1, allocationSize = 1) // Auto
-//increment
-public class Client {
+
+public class Client{
 	@Id
-	@GeneratedValue(generator="Client_gen")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "id_client")
 	private Integer id;
 	private String nom;
 	private String prenom;
 	
 	@OneToOne
-	@JoinColumn(name="user_id")
+	@JoinColumn(name="userClient")
 	private User userClient;
 	
-//	@ManyToMany(mappedBy="commandes")
+//	@OneToMany(mappedBy="client")
 //	private List<Commande> commandes;
 	
 	public Client() {
@@ -35,6 +37,11 @@ public class Client {
 		// TODO Auto-generated constructor stub
 	}
 	
+	public Client(User userClient) {
+	super();
+	this.userClient = userClient;
+}
+
 	public Client(Integer id, String nom, String prenom) {
 		super();
 		this.id = id;
@@ -73,13 +80,15 @@ public class Client {
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
 	}
-	
+
 	public User getUserClient() {
 		return userClient;
 	}
+
 	public void setUserClient(User userClient) {
 		this.userClient = userClient;
 	}
+
 	
 
 	@Override

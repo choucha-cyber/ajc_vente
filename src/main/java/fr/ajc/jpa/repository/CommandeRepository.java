@@ -9,9 +9,6 @@ import fr.ajc.jpa.entity.Commande;
 
 
 public class CommandeRepository extends EntityRepository<Commande>{
-//Crud Simple, fetchByIdWithProduit)
-	
-	private EntityManagerFactory emf;
 
 public CommandeRepository(EntityManagerFactory emf) {
 	super(emf, Commande.class);

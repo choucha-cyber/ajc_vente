@@ -5,8 +5,6 @@ import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import fr.ajc.jpa.entity.Client;
-import fr.ajc.jpa.entity.Fournisseur;
 import fr.ajc.jpa.entity.Produit;
 import fr.ajc.jpa.entity.User;
 import fr.ajc.jpa.menu.Menu;
@@ -39,42 +37,29 @@ public class Main {
 		// Instanciation du repository
 		initRepos(emf);
 		
-		List<User> user = userRepo.findByUsername("Mimo");
-		System.out.println(user);
+		//pour commande se connecter -->CONNEXION OK!
+		//System.out.println(produitRepo.findAll());
+		//String libelle, float prix, Integer qteStock, Fournisseur fournisseur
+//	Produit produit = new Produit("tabouret", (float) 19.9, 59, fournisseurRepo.findById(2));
+//	produitRepo.create(produit); //-->TEST OK
+	//List<Produit> produits = produitRepo.findAll(); //-->TEST OK
+	//System.out.println(produits);
+		
+		
+		
+//		System.out.println(userRepo.findById(1)); //--> TEST OK
+
+//		Client client = new Client("nom1", "prenom1", userRepo.findById(1));
+//		client.setUserClient(userRepo.findById(1));
+		
+//		clientRepo.create(client); --> TEST OK
+		
+//		List<User> matchs = userRepo.findByUsernameAndPassword("user1", "mdp1");
+//		System.out.println(matchs); //-->TEST OK
+		
 
 		Menu.start();
-		//User
-		//String username, String pwd, Client userClient
-		//User user1 = new User("username3", "password3");
-//		userRepo.create(user1);
-		//User user2 = new User("username4", "password4");
-//		userRepo.create(user2);
-		//je crée et persisit des clients
-		//String nom, String prenom, User userClient
 		
-	//Client client = new Client("client3", "pwd3", userRepo.findById(3));
-		//clientRepo.createWithUser(new Client("client7", "pwd7"));
-//		client.setUserClient(user1);
-//		Client client2 = new Client("Client2", "cli2");
-//		clientRepo.create(client2);
-//		client.setUserClient(user2);
-		
-		//je crée et persisit des fournisseurs
-//		Fournisseur four = new Fournisseur("société1");
-//		fournisseurRepo.create(four);
-//		Fournisseur four2 = new Fournisseur("société2");
-//		fournisseurRepo.create(four2);
-		
-		//je crée et persiste des produits
-		//String libelle, float prix, Integer qteStock, Fournisseur fournisseurProduit
-//		Produit produit = new Produit("livre", 10.50f, 47, four);
-//		produitRepo.create(produit);
-//		Produit produit2 = new Produit("sac", 30.50f, 127, four2);
-//		produitRepo.create(produit2);
-		
-		
-		
-
 		System.out.println("Connexion ok");
 
 	}
@@ -86,5 +71,17 @@ public class Main {
 		commandeRepo = new CommandeRepository(emf);
 		produitRepo = new ProduitRepository(emf);
 	}
+	
+	public static void create() {
+		// CREATE
+		User user = new User("newUser", "newUsermdp");
 
+		if (userRepo.create(user)) {
+			System.out.println("Utilisateur crée !!");
+		} else {
+			System.out.println("Problème !!");
+		}
+	}
+	
+	
 }

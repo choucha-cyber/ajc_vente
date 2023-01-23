@@ -44,7 +44,7 @@ public class Menu {
 			} else {
 				User u = matchs.get(0);
 				System.out.println("Connexion réussie !!!!!!\nBienvenue " + u.getUsername());
-
+				qteStockOk();
 				break;
 			}
 		}
@@ -73,7 +73,11 @@ public class Menu {
 		//si qté == 0, alors pas affiché produit dans la liste
 		List<Produit> produits =  Main.produitRepo.findAll();
 		System.out.println("-- Liste de nos produits --");
-		Main.produitRepo.findAll().getClass().getName(); 
+		for(Produit produit:produits) {		
+			System.out.println("Produit : " +produit.getLibelle()+ " prix : " + produit.getPrix());
+		}
+		//System.out.println(produits);
+		//Main.produitRepo.findAll().getClass().getName(); 
 		System.out.println("-- Choisissez un produit dans la liste --");
 		String choixProduit = sc.next();
 				for(Produit produit:produits) {

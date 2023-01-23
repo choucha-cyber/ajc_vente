@@ -9,8 +9,6 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
 public class EntityRepository <T>{
-
-
 		
 		protected EntityManagerFactory emf;
 		private Class<T> entityClass;// La classe qu'on utilise dans les TypedQuery ou find etc... (Utilisateur.class, Formateur.class, etc..)
@@ -42,6 +40,7 @@ public class EntityRepository <T>{
 			} finally {
 				if (em != null) {
 					em.close();
+					//emf.close();
 				}
 			}
 			return created;
@@ -73,7 +72,8 @@ public class EntityRepository <T>{
 			}
 			return entity;
 		}
-
+		
+	
 		public Boolean update(T entity) {
 			EntityManager em = null;
 			EntityTransaction tx = null;

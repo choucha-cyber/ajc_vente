@@ -1,26 +1,23 @@
 package fr.ajc.jpa.entity;
 
-import java.util.List;
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
 @Entity
 @Table(name = "Produit") // La table en bdd
-@SequenceGenerator(name = "Produit_gen", sequenceName = "Produit_seq", initialValue = 1, allocationSize = 1) // Auto
-//increment
 	public class Produit {
 	
 	@Id
-	@GeneratedValue(generator="Produit_gen")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "produit_id")
 	private Integer id;
 	private String libelle;
 	private float prix;
@@ -28,39 +25,34 @@ import javax.persistence.Table;
 	
 	//un produit est fourni par un fournisseur, donc many produits peuvent etre fournit par le meme Fournisseur
 	@ManyToOne
-	@JoinColumn(name="fournisseur_id")//La colonne dans la table {module} qui fait la jointure vers l'autre table {formateur}
-	private Fournisseur fournisseurProduit;
+	@JoinColumn(name="fournisseur_id")//La colonne dans la table {produit} qui fait la jointure vers l'autre table {fournisseur}
+	private Fournisseur fournisseur;
 	
-//	@ManyToMany(mappedBy="commandes")
-//	private List<Commande> commandes;
-	@ManyToMany
-	@JoinTable(
-			name="produit_commande",
-			joinColumns=@JoinColumn(name="produit_id"),
-			inverseJoinColumns=@JoinColumn(name="commande_id")
-			)
-	private List<Commande> commandes;
+	//ProduitCommande
+	@OneToOne
+	@JoinColumn(name="produitCommandeId")
+	private ProduitCommande produitCommande;
 
 	public Produit() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Produit(Integer id, String libelle, float prix, Integer qteStock, Fournisseur fournisseurProduit) {
+	public Produit(Integer id, String libelle, float prix, Integer qteStock, Fournisseur fournisseur) {
 		super();
 		this.id = id;
 		this.libelle = libelle;
 		this.prix = prix;
 		this.qteStock = qteStock;
-		this.fournisseurProduit = fournisseurProduit;
+		this.fournisseur = fournisseur;
 	}
-
-	public Produit(String libelle, float prix, Integer qteStock, Fournisseur fournisseurProduit) {
+	
+	public Produit(String libelle, float prix, Integer qteStock, Fournisseur fournisseur) {
 		super();
 		this.libelle = libelle;
 		this.prix = prix;
 		this.qteStock = qteStock;
-		this.fournisseurProduit = fournisseurProduit;
+		this.fournisseur = fournisseur;
 	}
 
 	public Integer getId() {
@@ -95,26 +87,26 @@ import javax.persistence.Table;
 		this.qteStock = qteStock;
 	}
 
-	public Fournisseur getFournisseurProduit() {
-		return fournisseurProduit;
+	public Fournisseur getFournisseur() {
+		return fournisseur;
 	}
 
-	public void setFournisseurProduit(Fournisseur fournisseurProduit) {
-		this.fournisseurProduit = fournisseurProduit;
+	public void setFournisseur(Fournisseur fournisseur) {
+		this.fournisseur = fournisseur;
 	}
 
-	public List<Commande> getCommandes() {
-		return commandes;
+	public ProduitCommande getProduitCommande() {
+		return produitCommande;
 	}
 
-	public void setCommandes(List<Commande> commandes) {
-		this.commandes = commandes;
+	public void setProduitCommande(ProduitCommande produitCommande) {
+		this.produitCommande = produitCommande;
 	}
 
 	@Override
 	public String toString() {
 		return "Produit [id=" + id + ", libelle=" + libelle + ", prix=" + prix + ", qteStock=" + qteStock
-				+ ", fournisseurProduit=" + fournisseurProduit + "]";
+				+ ", fournisseur=" + fournisseur + "]";
 	}
 	
 	
